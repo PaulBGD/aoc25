@@ -31,12 +31,9 @@ fn main(input: &str) -> (usize, usize) {
 
         let mut highest_index = 0;
         for current_index in 0..row.len() {
+            // idk how to do this in rust, we want to skip forward to the last index we used
             if current_index <= highest_index && highest_index != 0 {
                 continue;
-            }
-
-            if curr_str.len() == 12 {
-                break;
             }
 
             let remaining_numbers_needed = 12 - curr_str.len();
@@ -57,6 +54,10 @@ fn main(input: &str) -> (usize, usize) {
             }
 
             curr_str = format!("{curr_str}{highest_num}");
+
+            if curr_str.len() == 12 {
+                break;
+            }
         }
 
         total_bank_p2 += curr_str.parse::<u128>().unwrap();
