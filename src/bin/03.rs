@@ -37,6 +37,7 @@ fn main(input: &str) -> (usize, usize) {
             }
 
             let remaining_numbers_needed = 12 - curr_str.len();
+            // we can't go beyond last_index because we need at least this many numbers after us
             let last_index_we_can_use = row.len() - remaining_numbers_needed;
 
             let current_num = row.chars().nth(current_index).unwrap().to_string().parse::<u8>().unwrap();
