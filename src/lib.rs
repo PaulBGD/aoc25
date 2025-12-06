@@ -14,7 +14,7 @@ pub fn main(args: TokenStream, input: TokenStream) -> TokenStream {
         #aoc_solution
         fn main() {
             let now = ::std::time::Instant::now();
-            let (p1, p2) = aoc_solution(INPUT.trim_end());
+            let (p1, p2) = aoc_solution(INPUT.strip_suffix("\n").unwrap());
             let elapsed = now.elapsed();
             println!("Part one: {}", p1);
             println!("Part two: {}", p2);

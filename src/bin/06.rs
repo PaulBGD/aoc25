@@ -1,12 +1,13 @@
+use std::cmp::min;
 use std::collections::HashMap;
 use itertools::Itertools;
 use regex::Regex;
 
 #[aoc::main(06)]
 fn main(input: &str) -> (usize, usize) {
-    let re = Regex::new(r"  +").unwrap();
+    let part_one_re = Regex::new(r"  +").unwrap();
 
-    let destringified = re.replace_all(input, " ");
+    let destringified = part_one_re.replace_all(input, " ");
     let xs = destringified.split('\n').map(|l| {
         l.trim().split(' ').collect::<Vec<_>>()
     }).collect::<Vec<_>>();
@@ -45,15 +46,40 @@ fn main(input: &str) -> (usize, usize) {
         return value;
     }).sum();
 
-    println!("{rows_by_index:?}");
 
-    // probably a better way to do this, but invert!
+    let part_two_re = Regex::new(r"[+*] +").unwrap();
 
-    (part_1 as usize, 0)
-}
+    let lines = input.split("\n").collect_vec();
 
-#[derive(Debug)]
-struct Row {
-    nums: Vec<u32>,
-    operation: char
+    let character_line = lines[lines.len() - 1];
+    let part_2: u64 = part_two_re.find_iter(character_line).map(|m| {
+        let operator = m.as_str().chars().nth(0).unwrap();
+        let nums = lines[..lines.len() - 1].iter().map(|&line| {
+            line[m.start()..min(m.end() - 1, line.len())].to_string()
+        }).collect_vec();
+
+        let mut transposed = Vec::new();
+
+        for _ in 0..nums[0].len() {
+            transposed.push(String::new());
+        }
+
+        for num in nums {
+            for (index, char) in num.chars().enumerate() {
+                transposed[index].push(char);
+            }
+        }
+
+        println!("{transposed:?}");
+
+        return transposed.iter().map(|val| val.trim().parse::<u64>().unwrap()).reduce(|acc, curr| {
+            match operator {
+                '+' => acc + curr,
+                '*' => acc * curr,
+                _ => panic!("no good?")
+            }
+        }).unwrap();
+    }).sum();
+
+    (part_1 as usize, part_2 as usize)
 }
