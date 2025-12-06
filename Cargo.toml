@@ -12,6 +12,7 @@ regex = "1.11"
 # lib proc-macro dependencies
 syn = { version = "2.0", features = ["full"] }
 quote = "1.0"
+rand = "0.10.0-rc.5"
 
 [lib]
 proc-macro = true

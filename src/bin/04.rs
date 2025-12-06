@@ -1,5 +1,3 @@
-use itertools::Itertools;
-
 #[aoc::main(04)]
 fn main(input: &str) -> (usize, usize) {
     let xs = input.split('\n').map(|str| str.to_owned()).collect::<Vec<_>>();
