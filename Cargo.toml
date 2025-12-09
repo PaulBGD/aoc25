@@ -13,6 +13,8 @@ regex = "1.11"
 syn = { version = "2.0", features = ["full"] }
 quote = "1.0"
 rand = "0.10.0-rc.5"
+combinations = "0.1.0"
+geo = "0.32.0"
 
 [lib]
 proc-macro = true
